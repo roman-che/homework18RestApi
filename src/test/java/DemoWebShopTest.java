@@ -18,29 +18,29 @@ public class DemoWebShopTest {
     }
 
     @Test
-    void getCookieAndTestProfile(){
+    void getCookieAndTestProfile() {
 
-            String authorizationCookie =
-                    given()
-                            .contentType("application/x-www-form-urlencoded; charset=UTF-8")
-                            .formParam("Email", "tester@qa.guru")
-                            .formParam("Password", "tester@qa.guru")
-                            .when()
-                            .post("/login")
-                            .then()
-                            .statusCode(302)
-                            .extract()
-                            .cookie("NOPCOMMERCE.AUTH");
+        String authorizationCookie =
+                given()
+                        .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+                        .formParam("Email", "tester@qa.guru")
+                        .formParam("Password", "tester@qa.guru")
+                        .when()
+                        .post("/login")
+                        .then()
+                        .statusCode(302)
+                        .extract()
+                        .cookie("NOPCOMMERCE.AUTH");
 
-                    open("/Themes/DefaultClean/Content/images/logo.png");
+        open("/Themes/DefaultClean/Content/images/logo.png");
 
-                    getWebDriver().manage().addCookie(new Cookie("NOPCOMMERCE.AUTH", authorizationCookie));
+        getWebDriver().manage().addCookie(new Cookie("NOPCOMMERCE.AUTH", authorizationCookie));
 
-                    open("/customer/info");
+        open("/customer/info");
 
-                    $("#gender-male").shouldBe(checked);
-                    $("#FirstName").shouldHave(value("tester"));
-                    $("#LastName").shouldHave(value("testeroff"));
-                    $("#Email").shouldHave(value("tester@qa.guru"));
+        $("#gender-male").shouldBe(checked);
+        $("#FirstName").shouldHave(value("tester"));
+        $("#LastName").shouldHave(value("testeroff"));
+        $("#Email").shouldHave(value("tester@qa.guru"));
     }
 }
